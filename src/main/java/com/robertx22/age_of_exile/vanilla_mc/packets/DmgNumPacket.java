@@ -6,14 +6,16 @@ import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.enumclasses.Elements;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.ClientOnly;
 import com.robertx22.age_of_exile.uncommon.wrappers.SText;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
-public class DmgNumPacket extends MyPacket<DmgNumPacket> {
+public class DmgNumPacket implements ClientPacketHandler {
 
     public String element;
     public String string;
@@ -61,18 +63,19 @@ public class DmgNumPacket extends MyPacket<DmgNumPacket> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
         if (isExp && ModConfig.get().client.dmgParticleConfig.ENABLE_CHAT_EXP_MSG) {
             ClientOnly.getPlayer()
                 .sendMessage(new SText(Formatting.GREEN + "" + Formatting.BOLD + "+" + (int) number + " EXP"), false);
 
         } else if (isExp == false && ModConfig.get().client.dmgParticleConfig.ENABLE_FLOATING_DMG) {
-            DamageParticleAdder.displayParticle(ctx.getPlayer().world.getEntityById(id), element, string);
+            DamageParticleAdder.displayParticle(client.player.world.getEntityById(id), element, string);
         }
     }
 
     @Override
-    public MyPacket<DmgNumPacket> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public DmgNumPacket newInstance() {
         return new DmgNumPacket();
     }
 }

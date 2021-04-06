@@ -30,7 +30,6 @@ import com.robertx22.age_of_exile.uncommon.interfaces.IAutoLocName;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.OnScreenMessageUtils;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.TooltipUtils;
 import com.robertx22.age_of_exile.vanilla_mc.packets.NoManaPacket;
-import com.robertx22.library_of_exile.main.Packets;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -254,7 +253,7 @@ public final class Spell implements IGUID, IAutoGson<Spell>, ISerializedRegistry
                     return true;
                 } else {
                     if (caster instanceof ServerPlayerEntity) {
-                        Packets.sendToClient((PlayerEntity) caster, new NoManaPacket());
+                        new NoManaPacket().send((PlayerEntity) caster);
                     }
                 }
             }

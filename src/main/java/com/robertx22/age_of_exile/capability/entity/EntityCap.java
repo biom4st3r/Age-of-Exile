@@ -406,7 +406,7 @@ public class EntityCap {
                 if (!Unit.shouldSendUpdatePackets(entity)) {
                     return;
                 }
-                Packets.sendToTracking(Unit.getUpdatePacketFor(entity, this), entity);
+                Unit.getUpdatePacketFor(entity, this).sendToTracking(entity);
             }
 
         }
@@ -554,7 +554,7 @@ public class EntityCap {
                     Load.favor(player)
                             .setFavor(ModConfig.get().Favor.STARTING_FAVOR); // newbie starting favor
 
-                    Packets.sendToClient(player, new SyncCapabilityToClient(player, PlayerCaps.SPELLS));
+                    new SyncCapabilityToClient(player, PlayerCaps.SPELLS).send((ServerPlayerEntity) player);
 
                 }
 

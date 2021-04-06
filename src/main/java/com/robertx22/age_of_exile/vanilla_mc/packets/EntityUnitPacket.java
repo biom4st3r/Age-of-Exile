@@ -2,15 +2,17 @@ package com.robertx22.age_of_exile.vanilla_mc.packets;
 
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class EntityUnitPacket extends MyPacket<EntityUnitPacket> {
+public class EntityUnitPacket implements ClientPacketHandler {
 
     public int id;
     public CompoundTag nbt;
@@ -45,8 +47,9 @@ public class EntityUnitPacket extends MyPacket<EntityUnitPacket> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
-        Entity entity = ctx.getPlayer().world.getEntityById(id);
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+
+        Entity entity = client.world.getEntityById(id);
 
         if (entity instanceof LivingEntity) {
 
@@ -58,7 +61,10 @@ public class EntityUnitPacket extends MyPacket<EntityUnitPacket> {
     }
 
     @Override
-    public MyPacket<EntityUnitPacket> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public EntityUnitPacket newInstance() {
         return new EntityUnitPacket();
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.robertx22.age_of_exile.vanilla_mc.packets.registry;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
 import com.robertx22.age_of_exile.aoe_data.datapacks.bases.ISerializedRegistryEntry;
 import com.robertx22.age_of_exile.database.IByteBuf;
@@ -9,14 +11,15 @@ import com.robertx22.age_of_exile.database.registry.SlashRegistryType;
 import com.robertx22.age_of_exile.mmorpg.MMORPG;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.testing.Watch;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-import java.util.List;
-
-public class EfficientRegistryPacket<T extends IByteBuf & ISerializedRegistryEntry> extends MyPacket<EfficientRegistryPacket> {
+public class EfficientRegistryPacket<T extends IByteBuf & ISerializedRegistryEntry> implements ClientPacketHandler {
     public static Identifier ID = new Identifier(Ref.MODID, "eff_reg");
     private List<T> items;
 
@@ -74,8 +77,7 @@ public class EfficientRegistryPacket<T extends IByteBuf & ISerializedRegistryEnt
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
-
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
         SlashRegistryContainer reg = Database.getRegistry(type);
 
         reg.unregisterAllEntriesFromDatapacks();
@@ -87,7 +89,8 @@ public class EfficientRegistryPacket<T extends IByteBuf & ISerializedRegistryEnt
     }
 
     @Override
-    public MyPacket<EfficientRegistryPacket> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public EfficientRegistryPacket newInstance() {
         return new EfficientRegistryPacket();
     }
 }

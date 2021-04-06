@@ -1,14 +1,17 @@
 package com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap;
 
 import com.robertx22.age_of_exile.mmorpg.Ref;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class SyncCapabilityToClient extends MyPacket<SyncCapabilityToClient> {
+public class SyncCapabilityToClient implements ClientPacketHandler {
 
     public SyncCapabilityToClient() {
 
@@ -46,8 +49,8 @@ public class SyncCapabilityToClient extends MyPacket<SyncCapabilityToClient> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
-        final PlayerEntity player = ctx.getPlayer();
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        final PlayerEntity player = client.player;
 
         if (player != null) {
             type.getCap(player)
@@ -57,7 +60,8 @@ public class SyncCapabilityToClient extends MyPacket<SyncCapabilityToClient> {
     }
 
     @Override
-    public MyPacket<SyncCapabilityToClient> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public SyncCapabilityToClient newInstance() {
         return new SyncCapabilityToClient();
     }
 }

@@ -1,13 +1,18 @@
 package com.robertx22.age_of_exile.vanilla_mc.blocks.repair_station;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.vanilla_mc.blocks.ModificationGui;
 import com.robertx22.age_of_exile.vanilla_mc.blocks.slots.FuelSlot;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ModifyItemPacket;
 import com.robertx22.library_of_exile.gui.HelpButton;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.CLOC;
 import com.robertx22.library_of_exile.utils.GuiUtils;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
@@ -18,11 +23,6 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class GuiGearRepair extends ModificationGui<ContainerGearRepair, TileGearRepair> {
@@ -83,7 +83,7 @@ public class GuiGearRepair extends ModificationGui<ContainerGearRepair, TileGear
 
         public CraftButton(BlockPos pos, int xPos, int yPos) {
             super(xPos, yPos, BUTTON_SIZE_X, BUTTON_SIZE_Y, 0, 0, BUTTON_SIZE_Y, BUTTON_TEX, (button) -> {
-                Packets.sendToServer(new ModifyItemPacket(pos));
+                new ModifyItemPacket(pos).send();
             });
             this.pos = pos;
         }

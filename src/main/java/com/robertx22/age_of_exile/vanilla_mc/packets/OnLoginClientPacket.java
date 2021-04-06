@@ -3,12 +3,14 @@ package com.robertx22.age_of_exile.vanilla_mc.packets;
 import com.robertx22.age_of_exile.database.registry.RegistryPackets;
 import com.robertx22.age_of_exile.database.registry.SyncTime;
 import com.robertx22.age_of_exile.mmorpg.Ref;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class OnLoginClientPacket extends MyPacket<OnLoginClientPacket> {
+public class OnLoginClientPacket implements ClientPacketHandler {
 
     @Override
     public Identifier getIdentifier() {
@@ -28,7 +30,7 @@ public class OnLoginClientPacket extends MyPacket<OnLoginClientPacket> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
 
         if (when == When.BEFORE) {
         }
@@ -39,7 +41,8 @@ public class OnLoginClientPacket extends MyPacket<OnLoginClientPacket> {
     }
 
     @Override
-    public MyPacket<OnLoginClientPacket> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public OnLoginClientPacket newInstance() {
         return new OnLoginClientPacket();
     }
 

@@ -28,8 +28,10 @@ import com.robertx22.age_of_exile.uncommon.stat_calculation.ExtraMobRarityAttrib
 import com.robertx22.age_of_exile.uncommon.stat_calculation.MobStatUtils;
 import com.robertx22.age_of_exile.uncommon.stat_calculation.PlayerStatUtils;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.RandomUtils;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
 import com.robertx22.age_of_exile.vanilla_mc.packets.EfficientMobUnitPacket;
 import com.robertx22.age_of_exile.vanilla_mc.packets.EntityUnitPacket;
+import com.robertx22.age_of_exile.vanilla_mc.packets.PacketHandler;
 import com.robertx22.library_of_exile.main.MyPacket;
 import com.robertx22.library_of_exile.main.Packets;
 import info.loenwind.autosave.annotations.Storable;
@@ -397,11 +399,11 @@ public class Unit {
                 if (!Unit.shouldSendUpdatePackets((LivingEntity) entity)) {
                     return;
                 }
-                Packets.sendToTracking(getUpdatePacketFor(entity, data), entity);
+                getUpdatePacketFor(entity, data).sendToTracking(entity);
             }
 
             if (entity instanceof PlayerEntity) {
-                Packets.sendToClient((PlayerEntity) entity, new EntityUnitPacket(entity));
+                new EntityUnitPacket(entity).send((PlayerEntity) entity);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -542,7 +544,7 @@ public class Unit {
         return !getIgnoredEntities().containsKey(en.getType());
     }
 
-    public static MyPacket getUpdatePacketFor(LivingEntity en, UnitData data) {
+    public static ClientPacketHandler getUpdatePacketFor(LivingEntity en, UnitData data) {
         return new EfficientMobUnitPacket(en, data);
     }
 

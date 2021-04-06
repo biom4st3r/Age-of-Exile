@@ -1,5 +1,9 @@
 package com.robertx22.age_of_exile.gui.screens.player_skills;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.robertx22.age_of_exile.database.data.player_skills.PlayerSkill;
 import com.robertx22.age_of_exile.database.registry.Database;
@@ -13,18 +17,14 @@ import com.robertx22.age_of_exile.uncommon.datasaving.Load;
 import com.robertx22.age_of_exile.uncommon.localization.Words;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.PlayerCaps;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.RequestSyncCapToClient;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.CLOC;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 public class PlayerSkillsScreen extends BaseScreen implements INamedScreen {
     private static final Identifier BACKGROUND = new Identifier(Ref.MODID, "textures/gui/skills/skills_background.png");
@@ -36,7 +36,7 @@ public class PlayerSkillsScreen extends BaseScreen implements INamedScreen {
 
     public PlayerSkillsScreen() {
         super(sizeX, sizeY);
-        Packets.sendToServer(new RequestSyncCapToClient(PlayerCaps.PLAYER_SKILLS));
+        new RequestSyncCapToClient(PlayerCaps.PLAYER_SKILLS).send();
     }
 
     @Override

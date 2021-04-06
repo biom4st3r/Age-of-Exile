@@ -7,15 +7,18 @@ import com.robertx22.age_of_exile.mmorpg.MMORPG;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.saveclasses.PointData;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketConsumer;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.PlayerCaps;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.SyncCapabilityToClient;
-import com.robertx22.library_of_exile.main.MyPacket;
-import com.robertx22.library_of_exile.main.Packets;
-import net.fabricmc.fabric.api.network.PacketContext;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class PerkChangePacket extends MyPacket<PerkChangePacket> {
+public class PerkChangePacket implements ServerPacketConsumer {
 
     public String school;
     public int x;
@@ -38,31 +41,40 @@ public class PerkChangePacket extends MyPacket<PerkChangePacket> {
     }
 
     @Override
+    public void loadFromData(PacketByteBuf buf) {
+        school = buf.readString(30);
+        x = buf.readInt();
+        y = buf.readInt();
+        action = buf.readEnumConstant(ACTION.class);
+
+    }
+
+    @Override
+    public void saveToData(PacketByteBuf buf) {
+        buf.writeString(school, 30);
+        buf.writeInt(x);
+        buf.writeInt(y);
+        buf.writeEnumConstant(action);
+    }
+
+    @Override
     public Identifier getIdentifier() {
+        return new Identifier(Ref.MODID, "perk_change");
+    }
+    public static Identifier getId() {
         return new Identifier(Ref.MODID, "perk_change");
     }
 
     @Override
-    public void loadFromData(PacketByteBuf tag) {
-        school = tag.readString(30);
-        x = tag.readInt();
-        y = tag.readInt();
-        action = tag.readEnumConstant(ACTION.class);
-
+    @SuppressWarnings({"unchecked"})
+    public PerkChangePacket newInstance() {
+        return new PerkChangePacket();
     }
 
     @Override
-    public void saveToData(PacketByteBuf tag) {
-        tag.writeString(school, 30);
-        tag.writeInt(x);
-        tag.writeInt(y);
-        tag.writeEnumConstant(action);
-
-    }
-
-    @Override
-    public void onReceived(PacketContext ctx) {
-        EntityPerks perks = Load.perks(ctx.getPlayer());
+    public void onReceive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
+            PacketSender responseSender) {
+        EntityPerks perks = Load.perks(player);
         SpellSchool sc = Database.SpellSchools()
                 .get(school);
 
@@ -73,8 +85,8 @@ public class PerkChangePacket extends MyPacket<PerkChangePacket> {
 
         PointData point = new PointData(x, y);
         if (action == ACTION.ALLOCATE) {
-            if (perks.data.canAllocate(sc, point, Load.Unit(ctx.getPlayer()), ctx.getPlayer())) {
-                perks.data.allocate(ctx.getPlayer(), sc, new PointData(x, y));
+            if (perks.data.canAllocate(sc, point, Load.Unit(player), player)) {
+                perks.data.allocate(player, sc, new PointData(x, y));
             }
         } else if (action == ACTION.REMOVE) {
             if (perks.data.canRemove(sc, point)) {
@@ -83,16 +95,14 @@ public class PerkChangePacket extends MyPacket<PerkChangePacket> {
             }
         }
 
-        Load.Unit(ctx.getPlayer())
+        Load.Unit(player)
                 .setEquipsChanged(true);
-        Load.Unit(ctx.getPlayer())
+        Load.Unit(player)
                 .tryRecalculateStats();
 
-        Packets.sendToClient(ctx.getPlayer(), new SyncCapabilityToClient(ctx.getPlayer(), PlayerCaps.ENTITY_PERKS));
-    }
+        new SyncCapabilityToClient(player, PlayerCaps.ENTITY_PERKS).send(player);
 
-    @Override
-    public MyPacket<PerkChangePacket> newInstance() {
-        return new PerkChangePacket();
+        
     }
+    
 }

@@ -2,22 +2,25 @@ package com.robertx22.age_of_exile.vanilla_mc.packets;
 
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.vanilla_mc.blocks.bases.BaseModificationStation;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-public class ModifyItemPacket extends MyPacket<ModifyItemPacket> {
+public class ModifyItemPacket implements ServerPacketConsumer {
 
     public static ModifyItemPacket EMPTY = new ModifyItemPacket();
 
-    BlockPos pos;
+    private BlockPos pos;
 
-    int num = 0;
+    private int num = 0;
 
     public ModifyItemPacket() {
-
     }
 
     public ModifyItemPacket(BlockPos pos, int num) {
@@ -30,7 +33,16 @@ public class ModifyItemPacket extends MyPacket<ModifyItemPacket> {
     }
 
     @Override
-    public void loadFromData(PacketByteBuf buf) {
+    public void onReceive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
+            PacketSender responseSender) {
+        BlockEntity be = player.world.getBlockEntity(pos);
+        if(be instanceof BaseModificationStation) {
+            ((BaseModificationStation)be).modifyItem(num, player);
+        }
+    }
+
+    @Override
+    public void loadFromData(PacketByteBuf buf) {        
         this.pos = buf.readBlockPos();
         this.num = buf.readInt();
     }
@@ -42,25 +54,18 @@ public class ModifyItemPacket extends MyPacket<ModifyItemPacket> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
-
-        try {
-            BaseModificationStation modify = (BaseModificationStation) ctx.getPlayer().world.getBlockEntity(pos);
-            modify.modifyItem(num, ctx.getPlayer());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public MyPacket<ModifyItemPacket> newInstance() {
-        return new ModifyItemPacket();
-    }
-
-    @Override
     public Identifier getIdentifier() {
+        return getId();
+    }
+
+    public static Identifier getId() {
         return new Identifier(Ref.MODID, "modifyitem");
     }
 
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public ModifyItemPacket newInstance() {
+        return new ModifyItemPacket();
+    }
+    
 }

@@ -1,5 +1,7 @@
 package com.robertx22.age_of_exile.vanilla_mc.packets.registry;
 
+import java.util.List;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -11,16 +13,17 @@ import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.saveclasses.ListStringData;
 import com.robertx22.age_of_exile.uncommon.interfaces.data_items.Cached;
 import com.robertx22.age_of_exile.uncommon.testing.Watch;
-import com.robertx22.library_of_exile.main.MyPacket;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
 import com.robertx22.library_of_exile.utils.LoadSave;
-import net.fabricmc.fabric.api.network.PacketContext;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-import java.util.List;
-
-public class RegistryPacket extends MyPacket<RegistryPacket> {
+public class RegistryPacket implements ClientPacketHandler {
     public static Identifier ID = new Identifier(Ref.MODID, "reg");
 
     public static final JsonParser PARSER = new JsonParser();
@@ -82,8 +85,7 @@ public class RegistryPacket extends MyPacket<RegistryPacket> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
-        Cached.reset();
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {        Cached.reset();
 
         if (data.getList()
             .isEmpty()) {
@@ -106,7 +108,8 @@ public class RegistryPacket extends MyPacket<RegistryPacket> {
     }
 
     @Override
-    public MyPacket<RegistryPacket> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public RegistryPacket newInstance() {
         return new RegistryPacket();
     }
 }

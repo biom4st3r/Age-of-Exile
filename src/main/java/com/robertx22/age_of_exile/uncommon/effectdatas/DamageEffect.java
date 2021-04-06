@@ -1,5 +1,13 @@
 package com.robertx22.age_of_exile.uncommon.effectdatas;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import com.robertx22.age_of_exile.config.forge.ModConfig;
 import com.robertx22.age_of_exile.damage_hooks.util.AttackInformation;
 import com.robertx22.age_of_exile.database.data.spells.PlayerAction;
@@ -14,7 +22,13 @@ import com.robertx22.age_of_exile.saveclasses.unit.ResourceType;
 import com.robertx22.age_of_exile.saveclasses.unit.ResourcesData;
 import com.robertx22.age_of_exile.uncommon.datasaving.Gear;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
-import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.*;
+import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.IArmorReducable;
+import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.ICrittable;
+import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.IDamageEffect;
+import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.IElementalPenetrable;
+import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.IElementalResistable;
+import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.IPenetrable;
+import com.robertx22.age_of_exile.uncommon.effectdatas.interfaces.WeaponTypes;
 import com.robertx22.age_of_exile.uncommon.enumclasses.Elements;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.DashUtils;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.HealthUtils;
@@ -23,8 +37,8 @@ import com.robertx22.age_of_exile.uncommon.utilityclasses.TeamUtils;
 import com.robertx22.age_of_exile.vanilla_mc.packets.DmgNumPacket;
 import com.robertx22.age_of_exile.vanilla_mc.potion_effects.IOnBasicAttackPotion;
 import com.robertx22.age_of_exile.vanilla_mc.potion_effects.IOnBasicAttackedPotion;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.SoundUtils;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -40,10 +54,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 public class DamageEffect extends EffectData implements IArmorReducable, IPenetrable, IDamageEffect,
     IElementalResistable, IElementalPenetrable, ICrittable {
@@ -400,8 +410,8 @@ public class DamageEffect extends EffectData implements IArmorReducable, IPenetr
                     text = "Resist";
                 }
 
-                DmgNumPacket packet = new DmgNumPacket(target, this.element, text, 0);
-                Packets.sendToClient(player, packet);
+                new DmgNumPacket(target, this.element, text, 0).send(player);
+                // Packets.sendToClient(player, packet);
                 return;
             }
 
@@ -412,8 +422,8 @@ public class DamageEffect extends EffectData implements IArmorReducable, IPenetr
                     text = NumberUtils.formatDamageNumber(this, entry.getValue()
                         .intValue());
 
-                    DmgNumPacket packet = new DmgNumPacket(target, entry.getKey(), text, entry.getValue());
-                    Packets.sendToClient(player, packet);
+                    new DmgNumPacket(target, entry.getKey(), text, entry.getValue()).send(player);
+                    // Packets.sendToClient(player, packet);
                 }
             }
 

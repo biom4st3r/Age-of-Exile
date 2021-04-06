@@ -4,13 +4,16 @@ import com.robertx22.age_of_exile.database.data.spells.components.Spell;
 import com.robertx22.age_of_exile.database.data.spells.spell_classes.bases.SpellCastContext;
 import com.robertx22.age_of_exile.database.registry.Database;
 import com.robertx22.age_of_exile.mmorpg.Ref;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class TellClientToCastSpellPacket extends MyPacket<TellClientToCastSpellPacket> {
+public class TellClientToCastSpellPacket implements ClientPacketHandler {
 
     public String spellid = "";
 
@@ -37,8 +40,8 @@ public class TellClientToCastSpellPacket extends MyPacket<TellClientToCastSpellP
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
-        PlayerEntity player = ctx.getPlayer();
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
 
         Spell spell = Database.Spells()
             .get(spellid);
@@ -49,7 +52,8 @@ public class TellClientToCastSpellPacket extends MyPacket<TellClientToCastSpellP
     }
 
     @Override
-    public MyPacket<TellClientToCastSpellPacket> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public TellClientToCastSpellPacket newInstance() {
         return new TellClientToCastSpellPacket();
     }
 }

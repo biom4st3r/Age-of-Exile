@@ -16,9 +16,9 @@ import com.robertx22.age_of_exile.uncommon.localization.Words;
 import com.robertx22.age_of_exile.vanilla_mc.packets.CharSelectPackets;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.PlayerCaps;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.RequestSyncCapToClient;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.CLOC;
 import com.robertx22.library_of_exile.utils.GuiUtils;
+
 import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -39,7 +39,7 @@ public class CharSelectScreen extends BaseSelectionScreen implements INamedScree
         super();
         this.mc = MinecraftClient.getInstance();
         this.data = Load.Unit(mc.player);
-        Packets.sendToServer(new RequestSyncCapToClient(PlayerCaps.CHARACTERS));
+        new RequestSyncCapToClient(PlayerCaps.CHARACTERS).send();
     }
 
     int index = 0;
@@ -189,7 +189,7 @@ public class CharSelectScreen extends BaseSelectionScreen implements INamedScree
 
         public Button(Screen screen, int charnum, CharSelectPackets.Action action, @Nullable OnePlayerCharData data, int xPos, int yPos) {
             super(xPos, yPos, xSize, ySize, 0, 0, 0, buttonLoc, (button) -> {
-                Packets.sendToServer(new CharSelectPackets(charnum, action));
+                new CharSelectPackets(charnum, action).send();
                 screen.onClose();
 
             });

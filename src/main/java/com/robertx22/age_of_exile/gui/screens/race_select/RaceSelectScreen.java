@@ -1,5 +1,7 @@
 package com.robertx22.age_of_exile.gui.screens.race_select;
 
+import java.util.List;
+
 import com.robertx22.age_of_exile.database.OptScaleExactStat;
 import com.robertx22.age_of_exile.database.data.races.PlayerRace;
 import com.robertx22.age_of_exile.database.registry.Database;
@@ -8,16 +10,14 @@ import com.robertx22.age_of_exile.gui.screens.ILeftRight;
 import com.robertx22.age_of_exile.gui.screens.character_screen.CharacterScreen;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ChooseRacePacket;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.CLOC;
 import com.robertx22.library_of_exile.utils.GuiUtils;
+
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-
-import java.util.List;
 
 public class RaceSelectScreen extends BaseSelectionScreen implements ILeftRight {
 
@@ -152,7 +152,7 @@ public class RaceSelectScreen extends BaseSelectionScreen implements ILeftRight 
 
         @Override
         public void onPress() {
-            Packets.sendToServer(new ChooseRacePacket(screen.races.get(screen.currentRace)));
+            new ChooseRacePacket(screen.races.get(screen.currentRace)).send();
             screen.onClose();
         }
 

@@ -1,5 +1,8 @@
 package com.robertx22.age_of_exile.vanilla_mc.blocks.buff_station;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.robertx22.age_of_exile.database.data.scroll_buff.ScrollBuff;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.player_skills.items.SkillRequirement;
@@ -7,9 +10,9 @@ import com.robertx22.age_of_exile.player_skills.items.inscribing.EssenceInkItem;
 import com.robertx22.age_of_exile.vanilla_mc.blocks.ModificationGui;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ModifyItemPacket;
 import com.robertx22.library_of_exile.gui.HelpButton;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.CLOC;
 import com.robertx22.library_of_exile.utils.GuiUtils;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -21,9 +24,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ScribeBuffScreen extends ModificationGui<ScribeBuffContainer, ScribeBuffTile> {
 
@@ -67,7 +67,7 @@ public class ScribeBuffScreen extends ModificationGui<ScribeBuffContainer, Scrib
 
         public OutcomeButton(int number, BlockPos pos, int xPos, int yPos) {
             super(xPos, yPos, BUTTON_SIZE_X, BUTTON_SIZE_Y, 0, 0, BUTTON_SIZE_Y, BUTTON_TEX, (button) -> {
-                Packets.sendToServer(new ModifyItemPacket(pos, number));
+                new ModifyItemPacket(pos,number).send();
             });
             this.pos = pos;
             this.num = number;

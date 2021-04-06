@@ -2,12 +2,14 @@ package com.robertx22.age_of_exile.vanilla_mc.packets;
 
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.ClientOnly;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class ForceChoosingRace extends MyPacket<ForceChoosingRace> {
+public class ForceChoosingRace implements ClientPacketHandler {
 
     @Override
     public Identifier getIdentifier() {
@@ -23,13 +25,14 @@ public class ForceChoosingRace extends MyPacket<ForceChoosingRace> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
 
         ClientOnly.openRaceSelection();
     }
 
     @Override
-    public MyPacket<ForceChoosingRace> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public ForceChoosingRace newInstance() {
         return new ForceChoosingRace();
     }
 

@@ -1,5 +1,8 @@
 package com.robertx22.age_of_exile.vanilla_mc.blocks.item_modify_station;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.robertx22.age_of_exile.database.data.currency.loc_reqs.BaseLocRequirement;
 import com.robertx22.age_of_exile.database.data.currency.loc_reqs.LocReqContext;
 import com.robertx22.age_of_exile.mmorpg.Ref;
@@ -8,8 +11,8 @@ import com.robertx22.age_of_exile.uncommon.localization.Words;
 import com.robertx22.age_of_exile.vanilla_mc.blocks.ModificationGui;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ModifyItemPacket;
 import com.robertx22.library_of_exile.gui.HelpButton;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.GuiUtils;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
@@ -21,9 +24,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class GuiGearModify extends ModificationGui<ContainerGearModify, TileGearModify> {
@@ -69,7 +69,7 @@ public class GuiGearModify extends ModificationGui<ContainerGearModify, TileGear
 
         public CraftButton(BlockPos pos, int xPos, int yPos) {
             super(xPos, yPos, BUTTON_SIZE_X, BUTTON_SIZE_Y, 0, 0, BUTTON_SIZE_Y, BUTTON_TEX, (button) -> {
-                Packets.sendToServer(new ModifyItemPacket(pos));
+                new ModifyItemPacket(pos).send();
             });
             this.pos = pos;
         }

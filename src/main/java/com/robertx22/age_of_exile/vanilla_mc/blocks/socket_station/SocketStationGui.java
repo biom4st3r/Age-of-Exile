@@ -1,5 +1,8 @@
 package com.robertx22.age_of_exile.vanilla_mc.blocks.socket_station;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.robertx22.age_of_exile.database.data.currency.loc_reqs.BaseLocRequirement;
 import com.robertx22.age_of_exile.database.data.currency.loc_reqs.LocReqContext;
 import com.robertx22.age_of_exile.mmorpg.Ref;
@@ -7,8 +10,8 @@ import com.robertx22.age_of_exile.uncommon.localization.Words;
 import com.robertx22.age_of_exile.vanilla_mc.blocks.ModificationGui;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ModifyItemPacket;
 import com.robertx22.library_of_exile.gui.HelpButton;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.GuiUtils;
+
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -18,9 +21,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SocketStationGui extends ModificationGui<SocketStationContainer, SocketStationBlockEntity> {
 
@@ -57,7 +57,7 @@ public class SocketStationGui extends ModificationGui<SocketStationContainer, So
 
         public CraftButton(BlockPos pos, int xPos, int yPos) {
             super(xPos, yPos, BUTTON_SIZE_X, BUTTON_SIZE_Y, 0, 0, BUTTON_SIZE_Y, BUTTON_TEX, (button) -> {
-                Packets.sendToServer(new ModifyItemPacket(pos));
+                new ModifyItemPacket(pos).send();
             });
             this.pos = pos;
         }

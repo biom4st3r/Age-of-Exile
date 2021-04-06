@@ -1,5 +1,7 @@
 package com.robertx22.age_of_exile.gui.screens.skill_tree.buttons;
 
+import java.util.List;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.robertx22.age_of_exile.capability.player.EntityPerks;
 import com.robertx22.age_of_exile.database.data.perks.Perk;
@@ -11,15 +13,13 @@ import com.robertx22.age_of_exile.saveclasses.PointData;
 import com.robertx22.age_of_exile.saveclasses.gearitem.gear_bases.TooltipInfo;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.RenderUtils;
 import com.robertx22.age_of_exile.vanilla_mc.packets.perks.PerkChangePacket;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.GuiUtils;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-
-import java.util.List;
 
 public class PerkButton extends TexturedButtonWidget {
 
@@ -91,10 +91,10 @@ public class PerkButton extends TexturedButtonWidget {
                         .getSoundManager());
 
                 if (button == 0) {
-                    Packets.sendToServer(new PerkChangePacket(school, point, PerkChangePacket.ACTION.ALLOCATE));
+                    new PerkChangePacket(school, point, PerkChangePacket.ACTION.ALLOCATE).send();
                 }
                 if (button == 1) {
-                    Packets.sendToServer(new PerkChangePacket(school, point, PerkChangePacket.ACTION.REMOVE));
+                    new PerkChangePacket(school, point, PerkChangePacket.ACTION.REMOVE).send();
                 }
                 this.onClick(mouseX, mouseY);
 

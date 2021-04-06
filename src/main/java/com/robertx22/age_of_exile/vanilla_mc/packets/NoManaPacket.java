@@ -3,14 +3,15 @@ package com.robertx22.age_of_exile.vanilla_mc.packets;
 import com.robertx22.age_of_exile.config.forge.ModConfig;
 import com.robertx22.age_of_exile.event_hooks.ontick.OnClientTick;
 import com.robertx22.age_of_exile.mmorpg.Ref;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.minecraft.entity.player.PlayerEntity;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
-public class NoManaPacket extends MyPacket<NoManaPacket> {
+public class NoManaPacket implements ClientPacketHandler {
 
     @Override
     public Identifier getIdentifier() {
@@ -28,18 +29,18 @@ public class NoManaPacket extends MyPacket<NoManaPacket> {
     }
 
     @Override
-    public void onReceived(PacketContext ctx) {
+    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
         if (ModConfig.get().client.SHOW_LOW_ENERGY_MANA_WARNING) {
             if (OnClientTick.canSoundNoMana()) {
                 OnClientTick.setNoManaSoundCooldown();
-                PlayerEntity player = ctx.getPlayer();
-                player.playSound(SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, 0.5F, 0);
+                client.player.playSound(SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, 0.5F, 0);
             }
         }
     }
 
     @Override
-    public MyPacket<NoManaPacket> newInstance() {
+    @SuppressWarnings({"unchecked"})
+    public NoManaPacket newInstance() {
         return new NoManaPacket();
     }
 

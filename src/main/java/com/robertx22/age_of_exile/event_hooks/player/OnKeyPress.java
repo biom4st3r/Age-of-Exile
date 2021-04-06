@@ -3,7 +3,7 @@ package com.robertx22.age_of_exile.event_hooks.player;
 import com.robertx22.age_of_exile.gui.screens.character_screen.CharacterScreen;
 import com.robertx22.age_of_exile.mmorpg.registers.client.KeybindsRegister;
 import com.robertx22.age_of_exile.vanilla_mc.packets.spells.TellServerToCastSpellPacket;
-import com.robertx22.library_of_exile.main.Packets;
+
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -49,7 +49,8 @@ public class OnKeyPress implements ClientTickEvents.EndTick {
             }
             if (number > -1) {
                 // todo make sure its not lagging servers
-                Packets.sendToServer(new TellServerToCastSpellPacket(number));
+                new TellServerToCastSpellPacket(number).send();
+                // Packets.sendToServer(new TellServerToCastSpellPacket(number));
             }
         }
     }

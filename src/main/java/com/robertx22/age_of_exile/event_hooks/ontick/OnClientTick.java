@@ -1,5 +1,8 @@
 package com.robertx22.age_of_exile.event_hooks.ontick;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.robertx22.age_of_exile.capability.player.PlayerSpellCap;
 import com.robertx22.age_of_exile.database.data.spells.SpellCastType;
 import com.robertx22.age_of_exile.database.data.spells.components.Spell;
@@ -8,13 +11,10 @@ import com.robertx22.age_of_exile.uncommon.datasaving.Gear;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.ClientOnly;
 import com.robertx22.age_of_exile.vanilla_mc.packets.spells.TellServerToCancelSpellCast;
-import com.robertx22.library_of_exile.main.Packets;
+
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-
-import java.util.HashMap;
-import java.util.List;
 
 public class OnClientTick implements ClientTickEvents.EndTick {
 
@@ -61,7 +61,7 @@ public class OnClientTick implements ClientTickEvents.EndTick {
                     if (spell.config.cast_type == SpellCastType.USE_ITEM) {
                         if (Gear.has(player.getMainHandStack())) {
                             ClientOnly.stopUseKey();
-                            Packets.sendToServer(new TellServerToCancelSpellCast());
+                            new TellServerToCancelSpellCast().send();
                         }
                     }
                 }

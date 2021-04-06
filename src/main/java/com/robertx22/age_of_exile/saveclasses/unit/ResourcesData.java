@@ -189,7 +189,7 @@ public class ResourcesData {
 
     private void sync(Context ctx) {
         if (ctx.target instanceof ServerPlayerEntity) {
-            Packets.sendToClient((PlayerEntity) ctx.target, new EntityUnitPacket(ctx.target));
+            new EntityUnitPacket(ctx.target).send((ServerPlayerEntity) ctx.target);
         }
     }
 

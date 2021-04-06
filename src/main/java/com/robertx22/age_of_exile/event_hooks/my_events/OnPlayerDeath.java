@@ -24,7 +24,7 @@ public class OnPlayerDeath extends EventConsumer<ExileEvents.OnPlayerDeath> {
             PlayerDeathData data = ModRegistry.COMPONENTS.PLAYER_DEATH_DATA.get(event.player);
             data.deathStats.died = true;
 
-            Packets.sendToClient(event.player, new SyncCapabilityToClient(event.player, PlayerCaps.DEATH_STATS));
+            new SyncCapabilityToClient(event.player, PlayerCaps.DEATH_STATS).send(event.player);
 
         } catch (Exception e) {
             e.printStackTrace();

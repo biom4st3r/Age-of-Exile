@@ -1,5 +1,14 @@
 package com.robertx22.age_of_exile.gui.screens.skill_tree;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.google.common.collect.Sets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.robertx22.age_of_exile.capability.player.EntityPerks;
@@ -18,9 +27,9 @@ import com.robertx22.age_of_exile.saveclasses.PointData;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.PlayerCaps;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.RequestSyncCapToClient;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.GuiUtils;
 import com.robertx22.library_of_exile.utils.GuiUtils.PointF;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -31,10 +40,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-
-import java.awt.*;
-import java.util.List;
-import java.util.*;
 
 public abstract class SkillTreeScreen extends BaseScreen implements INamedScreen {
     static Identifier BIG_PANEL = new Identifier(Ref.MODID, "textures/gui/skill_tree/background.png");
@@ -141,7 +146,7 @@ public abstract class SkillTreeScreen extends BaseScreen implements INamedScreen
         super.init();
 
         try {
-            Packets.sendToServer(new RequestSyncCapToClient(PlayerCaps.ENTITY_PERKS));
+            new RequestSyncCapToClient(PlayerCaps.ENTITY_PERKS).send();
 
             schoolsInOrder = Database.SpellSchools()
                     .getFiltered(x -> {

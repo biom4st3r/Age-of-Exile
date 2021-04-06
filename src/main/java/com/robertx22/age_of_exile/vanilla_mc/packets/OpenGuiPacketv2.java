@@ -7,20 +7,20 @@ import com.robertx22.age_of_exile.vanilla_mc.packets.proxies.OpenGuiWrapper;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class OpenGuiPacket implements ClientPacketHandler {
+public class OpenGuiPacketv2 implements ServerPacketConsumer {
 
-    public static OpenGuiPacket EMPTY = new OpenGuiPacket();
+    public static OpenGuiPacketv2 EMPTY = new OpenGuiPacketv2();
 
     public enum GuiType {
         TALENTS,
@@ -32,11 +32,11 @@ public class OpenGuiPacket implements ClientPacketHandler {
 
     GuiType type;
 
-    public OpenGuiPacket() {
+    public OpenGuiPacketv2() {
 
     }
 
-    public OpenGuiPacket(GuiType type) {
+    public OpenGuiPacketv2(GuiType type) {
         this.type = type;
     }
 
@@ -51,11 +51,27 @@ public class OpenGuiPacket implements ClientPacketHandler {
     }
 
     @Override
-    public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {        if (type == GuiType.MAIN_HUB) {
+    public Identifier getIdentifier() {
+        return new Identifier(Ref.MODID, "opengui");
+    }
+    public static Identifier getId() {
+        return new Identifier(Ref.MODID, "opengui");
+    }
+
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public OpenGuiPacketv2 newInstance() {
+        return new OpenGuiPacketv2();
+    }
+
+    @Override
+    public void onReceive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
+            PacketSender responseSender) {
+        if (type == GuiType.MAIN_HUB) {
             OpenGuiWrapper.openMainHub();
         }
         if (type == GuiType.SKILL_GEMS) {
-            client.player
+            player
                 .openHandledScreen(new ExtendedScreenHandlerFactory() {
                     @Override
                     public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
@@ -74,18 +90,7 @@ public class OpenGuiPacket implements ClientPacketHandler {
                     }
                 });
         }
-
+        
     }
-
-    @Override
-    @SuppressWarnings({"unchecked"})
-    public OpenGuiPacket newInstance() {
-        return new OpenGuiPacket();
-    }
-
-    @Override
-    public Identifier getIdentifier() {
-        return new Identifier(Ref.MODID, "opengui");
-    }
-
+    
 }

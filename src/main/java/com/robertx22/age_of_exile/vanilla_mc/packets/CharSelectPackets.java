@@ -3,14 +3,16 @@ package com.robertx22.age_of_exile.vanilla_mc.packets;
 import com.robertx22.age_of_exile.capability.player.data.OnePlayerCharData;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
-import com.robertx22.library_of_exile.main.MyPacket;
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.minecraft.entity.player.PlayerEntity;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 
-public class CharSelectPackets extends MyPacket<CharSelectPackets> {
+public class CharSelectPackets implements ServerPacketConsumer {
 
     public enum Action {DELETE, LOAD}
 
@@ -28,41 +30,47 @@ public class CharSelectPackets extends MyPacket<CharSelectPackets> {
     }
 
     @Override
+    public void loadFromData(PacketByteBuf buf) {
+        num = buf.readInt();
+        action = buf.readEnumConstant(Action.class);
+    }
+
+    @Override
+    public void saveToData(PacketByteBuf buf) {
+        buf.writeInt(num);
+        buf.writeEnumConstant(action);
+    }
+
+    @Override
     public Identifier getIdentifier() {
         return new Identifier(Ref.MODID, "char_select");
     }
 
     @Override
-    public void loadFromData(PacketByteBuf tag) {
-        num = tag.readInt();
-        action = tag.readEnumConstant(Action.class);
+    @SuppressWarnings({"unchecked"})
+    public CharSelectPackets newInstance() {
+        return new CharSelectPackets();
     }
 
     @Override
-    public void saveToData(PacketByteBuf tag) {
-        tag.writeInt(num);
-        tag.writeEnumConstant(action);
-    }
-
-    @Override
-    public void onReceived(PacketContext ctx) {
-        PlayerEntity p = ctx.getPlayer();
+    public void onReceive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
+            PacketSender responseSender) {
 
         if (action == Action.DELETE) {
-            OnePlayerCharData data = Load.characters(p).data.characters.get(num);
+            OnePlayerCharData data = Load.characters(player).data.characters.get(num);
             if (data.gearIsEmpty()) {
-                Load.characters(p).data.characters.remove(num);
+                Load.characters(player).data.characters.remove(num);
             } else {
-                ctx.getPlayer()
+                player
                     .sendMessage(new LiteralText("You can't delete a character that is wearing gear."), false);
             }
         } else if (action == Action.LOAD) {
-            Load.characters(p).data.load(num, p);
+            Load.characters(player).data.load(num, player);
         }
     }
 
-    @Override
-    public MyPacket<CharSelectPackets> newInstance() {
-        return new CharSelectPackets();
+    public static Identifier getId() {
+        return null;
     }
+    
 }

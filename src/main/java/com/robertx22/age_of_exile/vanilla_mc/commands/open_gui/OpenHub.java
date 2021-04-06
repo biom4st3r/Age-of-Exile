@@ -4,6 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.age_of_exile.vanilla_mc.commands.CommandRefs;
 import com.robertx22.age_of_exile.vanilla_mc.packets.OpenGuiPacket;
+
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -25,8 +27,7 @@ public class OpenHub {
         try {
 
             if (source.getEntity() instanceof ServerPlayerEntity) {
-                Packets.sendToClient(source.getPlayer(),
-                    new OpenGuiPacket(OpenGuiPacket.GuiType.MAIN_HUB));
+                new OpenGuiPacket(OpenGuiPacket.GuiType.MAIN_HUB).send((PlayerEntity) source.getEntity());
             }
 
         } catch (Exception e) {
