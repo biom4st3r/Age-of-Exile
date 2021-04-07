@@ -12,7 +12,7 @@ public class SkillGemsOpener implements IContainerNamedScreen {
     @Override
     public void openContainer() {
 
-        new OpenGuiPacketv2(OpenGuiPacketv2.GuiType.SKILL_GEMS).send();
+        new OpenGuiPacketv2(OpenGuiPacketv2.GuiType.SKILL_GEMS).sendToServer();
     }
 
     @Override

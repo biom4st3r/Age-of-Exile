@@ -9,7 +9,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class ForceChoosingRace implements ClientPacketHandler {
+public class ForceChoosingRace implements ServerToClientPacket {
 
     @Override
     public Identifier getIdentifier() {

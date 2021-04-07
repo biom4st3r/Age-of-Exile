@@ -36,7 +36,7 @@ public class PlayerSkillsScreen extends BaseScreen implements INamedScreen {
 
     public PlayerSkillsScreen() {
         super(sizeX, sizeY);
-        new RequestSyncCapToClient(PlayerCaps.PLAYER_SKILLS).send();
+        new RequestSyncCapToClient(PlayerCaps.PLAYER_SKILLS).sendToServer();
     }
 
     @Override

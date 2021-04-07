@@ -14,25 +14,25 @@ import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.RequestSyncCapToCl
 public class C2SPacketRegister {
 
     public static void register() {
-        new ModifyItemPacket().register();
+        new ModifyItemPacket().registerClientPacket();
         // Packets.registerClientToServerPacket(new ModifyItemPacket());
-        new CharSelectPackets().register();
+        new CharSelectPackets().registerClientPacket();
         // Packets.registerClientToServerPacket(new CharSelectPackets());
-        new ChooseRacePacket().register();
+        new ChooseRacePacket().registerClientPacket();
         // Packets.registerClientToServerPacket(new ChooseRacePacket());
-        new RequestSyncCapToClient().register();
+        new RequestSyncCapToClient().registerClientPacket();
         // Packets.registerClientToServerPacket(new RequestSyncCapToClient());
-        new TellServerToCastSpellPacket().register();
+        new TellServerToCastSpellPacket().registerClientPacket();
         // Packets.registerClientToServerPacket(new TellServerToCastSpellPacket());
-        new PerkChangePacket().register();
+        new PerkChangePacket().registerClientPacket();
         // Packets.registerClientToServerPacket(new PerkChangePacket());
-        new AllocateStatPacket().register();
+        new AllocateStatPacket().registerClientPacket();
         // Packets.registerClientToServerPacket(new AllocateStatPacket());
-        new RequestRegistriesPacket().register(); // Not used?
+        new RequestRegistriesPacket().registerClientPacket(); // Not used?
         // Packets.registerClientToServerPacket(new RequestRegistriesPacket());
-        new OpenGuiPacketv2().register();
+        new OpenGuiPacketv2().registerClientPacket();
         // Packets.registerClientToServerPacket(new OpenGuiPacket());
-        new TellServerToCancelSpellCast().register();
+        new TellServerToCancelSpellCast().registerClientPacket();
         // Packets.registerClientToServerPacket(new TellServerToCancelSpellCast());
 
     }

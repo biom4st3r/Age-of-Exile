@@ -11,7 +11,7 @@ import com.robertx22.age_of_exile.database.registry.SlashRegistryType;
 import com.robertx22.age_of_exile.mmorpg.MMORPG;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.testing.Watch;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerToClientPacket;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
@@ -19,7 +19,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class EfficientRegistryPacket<T extends IByteBuf & ISerializedRegistryEntry> implements ClientPacketHandler {
+public class EfficientRegistryPacket<T extends IByteBuf & ISerializedRegistryEntry> implements ServerToClientPacket {
     public static Identifier ID = new Identifier(Ref.MODID, "eff_reg");
     private List<T> items;
 

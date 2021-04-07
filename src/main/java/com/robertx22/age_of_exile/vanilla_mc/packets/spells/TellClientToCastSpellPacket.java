@@ -4,7 +4,7 @@ import com.robertx22.age_of_exile.database.data.spells.components.Spell;
 import com.robertx22.age_of_exile.database.data.spells.spell_classes.bases.SpellCastContext;
 import com.robertx22.age_of_exile.database.registry.Database;
 import com.robertx22.age_of_exile.mmorpg.Ref;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerToClientPacket;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class TellClientToCastSpellPacket implements ClientPacketHandler {
+public class TellClientToCastSpellPacket implements ServerToClientPacket {
 
     public String spellid = "";
 

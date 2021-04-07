@@ -10,19 +10,19 @@ public class S2CPacketRegister {
 
     public static void register() {
 
-        new DmgNumPacket().register();
-        new ForceChoosingRace().register();
-        new EfficientMobUnitPacket().register();
-        new EntityUnitPacket().register();
-        new NoManaPacket().register();
-        new OnLoginClientPacket().register();
-        new OpenGuiPacket().register();
-        new RegistryPacket().register();
-        new EfficientRegistryPacket().register();
-        new SyncCapabilityToClient().register();
-        new TellClientToCastSpellPacket().register();
-        new SyncAreaLevelPacket().register();
-        new SkillLevelUpToClient().register();
+        new DmgNumPacket().registerServerPacket();
+        new ForceChoosingRace().registerServerPacket();
+        new EfficientMobUnitPacket().registerServerPacket();
+        new EntityUnitPacket().registerServerPacket();
+        new NoManaPacket().registerServerPacket();
+        new OnLoginClientPacket().registerServerPacket();
+        new OpenGuiPacket().registerServerPacket();
+        new RegistryPacket().registerServerPacket();
+        new EfficientRegistryPacket().registerServerPacket();
+        new SyncCapabilityToClient().registerServerPacket();
+        new TellClientToCastSpellPacket().registerServerPacket();
+        new SyncAreaLevelPacket().registerServerPacket();
+        new SkillLevelUpToClient().registerServerPacket();
 
     }
 }

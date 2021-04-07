@@ -28,7 +28,7 @@ import com.robertx22.age_of_exile.uncommon.stat_calculation.ExtraMobRarityAttrib
 import com.robertx22.age_of_exile.uncommon.stat_calculation.MobStatUtils;
 import com.robertx22.age_of_exile.uncommon.stat_calculation.PlayerStatUtils;
 import com.robertx22.age_of_exile.uncommon.utilityclasses.RandomUtils;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerToClientPacket;
 import com.robertx22.age_of_exile.vanilla_mc.packets.EfficientMobUnitPacket;
 import com.robertx22.age_of_exile.vanilla_mc.packets.EntityUnitPacket;
 import com.robertx22.age_of_exile.vanilla_mc.packets.PacketHandler;
@@ -544,7 +544,7 @@ public class Unit {
         return !getIgnoredEntities().containsKey(en.getType());
     }
 
-    public static ClientPacketHandler getUpdatePacketFor(LivingEntity en, UnitData data) {
+    public static ServerToClientPacket getUpdatePacketFor(LivingEntity en, UnitData data) {
         return new EfficientMobUnitPacket(en, data);
     }
 

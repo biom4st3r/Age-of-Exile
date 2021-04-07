@@ -146,7 +146,7 @@ public abstract class SkillTreeScreen extends BaseScreen implements INamedScreen
         super.init();
 
         try {
-            new RequestSyncCapToClient(PlayerCaps.ENTITY_PERKS).send();
+            new RequestSyncCapToClient(PlayerCaps.ENTITY_PERKS).sendToServer();
 
             schoolsInOrder = Database.SpellSchools()
                     .getFiltered(x -> {

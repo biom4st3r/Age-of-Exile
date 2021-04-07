@@ -4,7 +4,7 @@ import com.robertx22.age_of_exile.database.registry.Database;
 import com.robertx22.age_of_exile.database.registry.SyncTime;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.vanilla_mc.packets.OnLoginClientPacket;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientToServerPacket;
 import com.robertx22.library_of_exile.main.Packets;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -14,7 +14,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class RequestRegistriesPacket implements ServerPacketHandler {
+public class RequestRegistriesPacket implements ClientToServerPacket {
 
     SyncTime sync;
 
@@ -54,7 +54,7 @@ public class RequestRegistriesPacket implements ServerPacketHandler {
     public void onReceive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
             PacketSender responseSender) {        
         Database.sendPacketsToClient(player, sync);
-        new OnLoginClientPacket(sync, OnLoginClientPacket.When.AFTER).send(player);
+        new OnLoginClientPacket(sync, OnLoginClientPacket.When.AFTER).sendToClient(player);
     }
     
 }

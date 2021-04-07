@@ -39,7 +39,7 @@ public class CharSelectScreen extends BaseSelectionScreen implements INamedScree
         super();
         this.mc = MinecraftClient.getInstance();
         this.data = Load.Unit(mc.player);
-        new RequestSyncCapToClient(PlayerCaps.CHARACTERS).send();
+        new RequestSyncCapToClient(PlayerCaps.CHARACTERS).sendToServer();
     }
 
     int index = 0;
@@ -189,7 +189,7 @@ public class CharSelectScreen extends BaseSelectionScreen implements INamedScree
 
         public Button(Screen screen, int charnum, CharSelectPackets.Action action, @Nullable OnePlayerCharData data, int xPos, int yPos) {
             super(xPos, yPos, xSize, ySize, 0, 0, 0, buttonLoc, (button) -> {
-                new CharSelectPackets(charnum, action).send();
+                new CharSelectPackets(charnum, action).sendToServer();
                 screen.onClose();
 
             });

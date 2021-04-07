@@ -15,7 +15,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
-public class DmgNumPacket implements ClientPacketHandler {
+public class DmgNumPacket implements ServerToClientPacket {
 
     public String element;
     public String string;

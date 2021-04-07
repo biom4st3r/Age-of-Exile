@@ -1,7 +1,7 @@
 package com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap;
 
 import com.robertx22.age_of_exile.mmorpg.Ref;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerToClientPacket;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class SyncCapabilityToClient implements ClientPacketHandler {
+public class SyncCapabilityToClient implements ServerToClientPacket {
 
     public SyncCapabilityToClient() {
 

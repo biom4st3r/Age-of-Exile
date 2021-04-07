@@ -554,7 +554,7 @@ public class EntityCap {
                     Load.favor(player)
                             .setFavor(ModConfig.get().Favor.STARTING_FAVOR); // newbie starting favor
 
-                    new SyncCapabilityToClient(player, PlayerCaps.SPELLS).send((ServerPlayerEntity) player);
+                    new SyncCapabilityToClient(player, PlayerCaps.SPELLS).sendToClient((ServerPlayerEntity) player);
 
                 }
 

@@ -152,7 +152,7 @@ public class RaceSelectScreen extends BaseSelectionScreen implements ILeftRight 
 
         @Override
         public void onPress() {
-            new ChooseRacePacket(screen.races.get(screen.currentRace)).send();
+            new ChooseRacePacket(screen.races.get(screen.currentRace)).sendToServer();
             screen.onClose();
         }
 

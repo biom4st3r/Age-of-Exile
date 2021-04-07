@@ -49,7 +49,7 @@ public class OnKeyPress implements ClientTickEvents.EndTick {
             }
             if (number > -1) {
                 // todo make sure its not lagging servers
-                new TellServerToCastSpellPacket(number).send();
+                new TellServerToCastSpellPacket(number).sendToServer();
                 // Packets.sendToServer(new TellServerToCastSpellPacket(number));
             }
         }

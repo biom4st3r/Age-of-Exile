@@ -13,7 +13,7 @@ import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.saveclasses.ListStringData;
 import com.robertx22.age_of_exile.uncommon.interfaces.data_items.Cached;
 import com.robertx22.age_of_exile.uncommon.testing.Watch;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ClientPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerToClientPacket;
 import com.robertx22.library_of_exile.utils.LoadSave;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -23,7 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class RegistryPacket implements ClientPacketHandler {
+public class RegistryPacket implements ServerToClientPacket {
     public static Identifier ID = new Identifier(Ref.MODID, "reg");
 
     public static final JsonParser PARSER = new JsonParser();

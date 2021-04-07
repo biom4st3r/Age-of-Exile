@@ -1,7 +1,7 @@
 package com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap;
 
 import com.robertx22.age_of_exile.mmorpg.Ref;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientToServerPacket;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
@@ -10,7 +10,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class RequestSyncCapToClient implements ServerPacketHandler {
+public class RequestSyncCapToClient implements ClientToServerPacket {
 
     public RequestSyncCapToClient() {
 
@@ -46,7 +46,7 @@ public class RequestSyncCapToClient implements ServerPacketHandler {
     @Override
     public void onReceive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
             PacketSender responseSender) {        
-        new SyncCapabilityToClient(player, type).send(player);
+        new SyncCapabilityToClient(player, type).sendToClient(player);
     }
 
     public static Identifier getId() {

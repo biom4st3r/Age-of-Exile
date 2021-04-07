@@ -15,11 +15,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public interface ClientPacketHandler extends PlayChannelHandler, PacketHandler {
+public interface ServerToClientPacket extends PlayChannelHandler, PacketHandler {
 
     default void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf,
             PacketSender responseSender) { // THIS IS EFFECTILY STATIC
-        ClientPacketHandler ph = this.newInstance(); // Because this is effectively static a new instance must be made
+        ServerToClientPacket ph = this.newInstance(); // Because this is effectively static a new instance must be made
         ph.loadFromData(buf);
         client.submit(()->ph.onReceive(client,handler,responseSender));
     }
@@ -28,26 +28,26 @@ public interface ClientPacketHandler extends PlayChannelHandler, PacketHandler {
 
     default void send(PlayerEntity target) {
         if(!target.world.isClient) {
-            this.send((ServerPlayerEntity)target);
+            this.sendToClient((ServerPlayerEntity)target);
         }
         else {
             MMORPG.logError("Attempted to send S2C Packet from Client! This should not happen");
         }
     }
 
-    default void send(ServerPlayerEntity spe) {
+    default void sendToClient(ServerPlayerEntity spe) {
         PacketByteBuf buf = new PacketByteBuf(new PacketByteBuf(Unpooled.buffer()));
         this.saveToData(buf);
         ServerPlayNetworking.send(spe, this.getIdentifier(), buf);
     }
 
-    default void register() {
+    default void registerServerPacket() {
         ClientPlayNetworking.registerGlobalReceiver(this.getIdentifier(), this);
     }
 
     default void sendToTracking(Entity entity) {
         PlayerLookup.tracking(entity).forEach((player)-> {
-            this.send(player);
+            this.sendToClient(player);
         });
     }
 }

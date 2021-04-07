@@ -91,10 +91,10 @@ public class PerkButton extends TexturedButtonWidget {
                         .getSoundManager());
 
                 if (button == 0) {
-                    new PerkChangePacket(school, point, PerkChangePacket.ACTION.ALLOCATE).send();
+                    new PerkChangePacket(school, point, PerkChangePacket.ACTION.ALLOCATE).sendToServer();
                 }
                 if (button == 1) {
-                    new PerkChangePacket(school, point, PerkChangePacket.ACTION.REMOVE).send();
+                    new PerkChangePacket(school, point, PerkChangePacket.ACTION.REMOVE).sendToServer();
                 }
                 this.onClick(mouseX, mouseY);
 

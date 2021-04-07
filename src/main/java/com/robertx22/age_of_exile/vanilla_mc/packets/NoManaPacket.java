@@ -11,7 +11,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
-public class NoManaPacket implements ClientPacketHandler {
+public class NoManaPacket implements ServerToClientPacket {
 
     @Override
     public Identifier getIdentifier() {

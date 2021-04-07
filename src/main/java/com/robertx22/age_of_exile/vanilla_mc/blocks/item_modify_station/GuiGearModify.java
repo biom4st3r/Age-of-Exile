@@ -69,7 +69,7 @@ public class GuiGearModify extends ModificationGui<ContainerGearModify, TileGear
 
         public CraftButton(BlockPos pos, int xPos, int yPos) {
             super(xPos, yPos, BUTTON_SIZE_X, BUTTON_SIZE_Y, 0, 0, BUTTON_SIZE_Y, BUTTON_TEX, (button) -> {
-                new ModifyItemPacket(pos).send();
+                new ModifyItemPacket(pos).sendToServer();
             });
             this.pos = pos;
         }

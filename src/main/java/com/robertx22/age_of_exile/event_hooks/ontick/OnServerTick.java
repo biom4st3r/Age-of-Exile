@@ -184,11 +184,11 @@ public class OnServerTick implements ServerTickEvents.EndTick {
 
                     if (!Load.Unit(player)
                         .hasRace()) {
-                        new ForceChoosingRace().send(player);
+                        new ForceChoosingRace().sendToClient(player);
                     }
 
                     CapSyncUtil.syncAll(player);
-                    new SyncAreaLevelPacket(LevelUtils.determineLevel(player.world, player.getBlockPos(), player)).send(player);
+                    new SyncAreaLevelPacket(LevelUtils.determineLevel(player.world, player.getBlockPos(), player)).sendToClient(player);
                 }
 
                 UnequipGear.onTick(player);

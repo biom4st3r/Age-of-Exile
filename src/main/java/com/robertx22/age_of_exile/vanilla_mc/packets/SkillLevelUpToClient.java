@@ -11,7 +11,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class SkillLevelUpToClient implements ClientPacketHandler {
+public class SkillLevelUpToClient implements ServerToClientPacket {
 
     public String skill;
 

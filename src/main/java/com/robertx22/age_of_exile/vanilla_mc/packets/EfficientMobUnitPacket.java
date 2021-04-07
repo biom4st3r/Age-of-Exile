@@ -13,7 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class EfficientMobUnitPacket implements ClientPacketHandler {
+public class EfficientMobUnitPacket implements ServerToClientPacket {
 
     public int id;
     public CompoundTag nbt;

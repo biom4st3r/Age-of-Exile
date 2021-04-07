@@ -22,7 +22,7 @@ public class OnTrackEntity implements TrackingStartCallback {
 
                 if (entity.isPartOf(serverPlayerEntity) == false) {
 
-                    Unit.getUpdatePacketFor((LivingEntity) entity, Load.Unit(entity)).send(serverPlayerEntity);
+                    Unit.getUpdatePacketFor((LivingEntity) entity, Load.Unit(entity)).sendToClient(serverPlayerEntity);
 
                 }
             }

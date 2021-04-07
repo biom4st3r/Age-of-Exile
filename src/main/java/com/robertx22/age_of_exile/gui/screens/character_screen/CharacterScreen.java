@@ -316,7 +316,7 @@ public class CharacterScreen extends BaseScreen implements INamedScreen {
 
         public AllocateStatButton(Stat stat, int xPos, int yPos) {
             super(xPos, yPos, SIZEX, SIZEY, 0, 0, SIZEY, BUTTON_TEX, (button) -> {
-                new AllocateStatPacket(stat).send();
+                new AllocateStatPacket(stat).sendToServer();
             });
             this.stat = stat;
         }

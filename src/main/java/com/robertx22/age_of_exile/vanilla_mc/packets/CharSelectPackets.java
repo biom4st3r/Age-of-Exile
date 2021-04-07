@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 
-public class CharSelectPackets implements ServerPacketHandler {
+public class CharSelectPackets implements ClientToServerPacket {
 
     public enum Action {DELETE, LOAD}
 

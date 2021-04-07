@@ -12,7 +12,7 @@ public interface ICommonPlayerCap extends ICommonCap {
 
     default void syncToClient(PlayerEntity player) {
         if (!player.world.isClient) {
-            new SyncCapabilityToClient(player, getCapType()).send((ServerPlayerEntity) player);
+            new SyncCapabilityToClient(player, getCapType()).sendToClient((ServerPlayerEntity) player);
         }
     }
 

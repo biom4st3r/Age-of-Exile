@@ -8,7 +8,7 @@ import com.robertx22.age_of_exile.database.data.spells.spell_classes.bases.Spell
 import com.robertx22.age_of_exile.database.registry.Database;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketHandler;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ClientToServerPacket;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
@@ -17,7 +17,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class TellServerToCastSpellPacket implements ServerPacketHandler {
+public class TellServerToCastSpellPacket implements ClientToServerPacket {
 
     int number;
 

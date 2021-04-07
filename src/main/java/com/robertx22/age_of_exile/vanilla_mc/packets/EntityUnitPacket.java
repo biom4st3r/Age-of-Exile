@@ -12,7 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class EntityUnitPacket implements ClientPacketHandler {
+public class EntityUnitPacket implements ServerToClientPacket {
 
     public int id;
     public CompoundTag nbt;

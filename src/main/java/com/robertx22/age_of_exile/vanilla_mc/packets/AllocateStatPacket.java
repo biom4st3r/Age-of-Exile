@@ -16,7 +16,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class AllocateStatPacket implements ServerPacketHandler {
+public class AllocateStatPacket implements ClientToServerPacket {
 
     public String stat;
     AllocateStatPacket.ACTION action;
@@ -76,7 +76,7 @@ public class AllocateStatPacket implements ServerPacketHandler {
             if (Database.Stats()
                 .get(stat) instanceof BaseCoreStat) {
                 cap.data.map.put(stat, 1 + cap.data.map.getOrDefault(stat, 0));
-                new SyncCapabilityToClient(player, PlayerCaps.STAT_POINTS).send(player);
+                new SyncCapabilityToClient(player, PlayerCaps.STAT_POINTS).sendToClient(player);
             }
         }
         

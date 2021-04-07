@@ -10,7 +10,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class OnLoginClientPacket implements ClientPacketHandler {
+public class OnLoginClientPacket implements ServerToClientPacket {
 
     @Override
     public Identifier getIdentifier() {

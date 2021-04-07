@@ -9,7 +9,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
-public class SyncAreaLevelPacket implements ClientPacketHandler {
+public class SyncAreaLevelPacket implements ServerToClientPacket {
 
     public int lvl;
 

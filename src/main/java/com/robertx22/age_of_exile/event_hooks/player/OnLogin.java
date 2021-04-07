@@ -30,9 +30,9 @@ public class OnLogin {
 
         try {
 
-            new OnLoginClientPacket(SyncTime.ON_LOGIN, OnLoginClientPacket.When.BEFORE).send(player);
+            new OnLoginClientPacket(SyncTime.ON_LOGIN, OnLoginClientPacket.When.BEFORE).sendToClient(player);
             Database.sendPacketsToClient(player, SyncTime.ON_LOGIN);
-            new OnLoginClientPacket(SyncTime.ON_LOGIN, OnLoginClientPacket.When.AFTER).send(player);
+            new OnLoginClientPacket(SyncTime.ON_LOGIN, OnLoginClientPacket.When.AFTER).sendToClient(player);
             Database.restoreFromBackupifEmpty();
 
             Load.perks(player)
@@ -51,7 +51,7 @@ public class OnLogin {
                 data.syncToClient(player);
 
                 if (!data.hasRace()) {
-                    new ForceChoosingRace().send(player);
+                    new ForceChoosingRace().sendToClient(player);
                 }
 
             } else {

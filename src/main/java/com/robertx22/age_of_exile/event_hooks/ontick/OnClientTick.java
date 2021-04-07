@@ -61,7 +61,7 @@ public class OnClientTick implements ClientTickEvents.EndTick {
                     if (spell.config.cast_type == SpellCastType.USE_ITEM) {
                         if (Gear.has(player.getMainHandStack())) {
                             ClientOnly.stopUseKey();
-                            new TellServerToCancelSpellCast().send();
+                            new TellServerToCancelSpellCast().sendToServer();
                         }
                     }
                 }

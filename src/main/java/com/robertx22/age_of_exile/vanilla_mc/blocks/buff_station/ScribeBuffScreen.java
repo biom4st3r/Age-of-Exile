@@ -67,7 +67,7 @@ public class ScribeBuffScreen extends ModificationGui<ScribeBuffContainer, Scrib
 
         public OutcomeButton(int number, BlockPos pos, int xPos, int yPos) {
             super(xPos, yPos, BUTTON_SIZE_X, BUTTON_SIZE_Y, 0, 0, BUTTON_SIZE_Y, BUTTON_TEX, (button) -> {
-                new ModifyItemPacket(pos,number).send();
+                new ModifyItemPacket(pos,number).sendToServer();
             });
             this.pos = pos;
             this.num = number;

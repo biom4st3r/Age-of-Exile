@@ -410,7 +410,7 @@ public class DamageEffect extends EffectData implements IArmorReducable, IPenetr
                     text = "Resist";
                 }
 
-                new DmgNumPacket(target, this.element, text, 0).send(player);
+                new DmgNumPacket(target, this.element, text, 0).sendToClient(player);
                 // Packets.sendToClient(player, packet);
                 return;
             }
@@ -422,7 +422,7 @@ public class DamageEffect extends EffectData implements IArmorReducable, IPenetr
                     text = NumberUtils.formatDamageNumber(this, entry.getValue()
                         .intValue());
 
-                    new DmgNumPacket(target, entry.getKey(), text, entry.getValue()).send(player);
+                    new DmgNumPacket(target, entry.getKey(), text, entry.getValue()).sendToClient(player);
                     // Packets.sendToClient(player, packet);
                 }
             }
