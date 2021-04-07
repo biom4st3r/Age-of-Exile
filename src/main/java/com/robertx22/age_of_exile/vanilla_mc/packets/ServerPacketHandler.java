@@ -10,12 +10,12 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public interface ServerPacketConsumer extends PlayChannelHandler,PacketHandler {
+public interface ServerPacketHandler extends PlayChannelHandler,PacketHandler {
 
     @Override // THIS IS EFFECTILY STATIC
     default void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
         PacketByteBuf buf, PacketSender responseSender) {
-        ServerPacketConsumer ph = this.newInstance(); // Because this is effectively static a new instance must be made
+        ServerPacketHandler ph = this.newInstance(); // Because this is effectively static a new instance must be made
         ph.loadFromData(buf);
         server.submit(()->ph.onReceive(server, player, handler, responseSender));
     }

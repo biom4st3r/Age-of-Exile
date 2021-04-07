@@ -4,7 +4,7 @@ import com.robertx22.age_of_exile.capability.player.PlayerSpellCap;
 import com.robertx22.age_of_exile.database.data.spells.spell_classes.bases.SpellCastContext;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketConsumer;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketHandler;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
@@ -13,7 +13,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class TellServerToCancelSpellCast implements ServerPacketConsumer {
+public class TellServerToCancelSpellCast implements ServerPacketHandler {
 
     @Override
     public void loadFromData(PacketByteBuf buf) {

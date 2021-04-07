@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class ChooseRacePacket implements ServerPacketConsumer {
+public class ChooseRacePacket implements ServerPacketHandler {
     
     public String race = "";
 

@@ -18,7 +18,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class OpenGuiPacketv2 implements ServerPacketConsumer {
+public class OpenGuiPacketv2 implements ServerPacketHandler {
 
     public static OpenGuiPacketv2 EMPTY = new OpenGuiPacketv2();
 

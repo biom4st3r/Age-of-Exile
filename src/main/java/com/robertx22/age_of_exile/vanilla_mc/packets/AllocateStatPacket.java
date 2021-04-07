@@ -16,7 +16,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class AllocateStatPacket implements ServerPacketConsumer {
+public class AllocateStatPacket implements ServerPacketHandler {
 
     public String stat;
     AllocateStatPacket.ACTION action;

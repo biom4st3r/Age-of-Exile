@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-public class ModifyItemPacket implements ServerPacketConsumer {
+public class ModifyItemPacket implements ServerPacketHandler {
 
     public static ModifyItemPacket EMPTY = new ModifyItemPacket();
 

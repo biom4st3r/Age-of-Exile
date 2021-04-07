@@ -7,7 +7,7 @@ import com.robertx22.age_of_exile.mmorpg.MMORPG;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.saveclasses.PointData;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
-import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketConsumer;
+import com.robertx22.age_of_exile.vanilla_mc.packets.ServerPacketHandler;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.PlayerCaps;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.SyncCapabilityToClient;
 
@@ -18,7 +18,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class PerkChangePacket implements ServerPacketConsumer {
+public class PerkChangePacket implements ServerPacketHandler {
 
     public String school;
     public int x;
