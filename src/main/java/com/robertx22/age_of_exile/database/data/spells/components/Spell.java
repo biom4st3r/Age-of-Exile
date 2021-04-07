@@ -253,7 +253,7 @@ public final class Spell implements IGUID, IAutoGson<Spell>, ISerializedRegistry
                     return true;
                 } else {
                     if (caster instanceof ServerPlayerEntity) {
-                        new NoManaPacket().send((PlayerEntity) caster);
+                        new NoManaPacket().sendToClient((PlayerEntity) caster);
                     }
                 }
             }

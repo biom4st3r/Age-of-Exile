@@ -4,6 +4,8 @@ import com.robertx22.age_of_exile.config.forge.ModConfig;
 import com.robertx22.age_of_exile.event_hooks.ontick.OnClientTick;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -29,6 +31,7 @@ public class NoManaPacket implements ServerToClientPacket {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
         if (ModConfig.get().client.SHOW_LOW_ENERGY_MANA_WARNING) {
             if (OnClientTick.canSoundNoMana()) {

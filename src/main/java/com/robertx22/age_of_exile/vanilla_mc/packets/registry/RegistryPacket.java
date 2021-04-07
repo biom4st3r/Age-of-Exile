@@ -16,6 +16,8 @@ import com.robertx22.age_of_exile.uncommon.testing.Watch;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ServerToClientPacket;
 import com.robertx22.library_of_exile.utils.LoadSave;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -85,6 +87,7 @@ public class RegistryPacket implements ServerToClientPacket {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {        Cached.reset();
 
         if (data.getList()

@@ -59,7 +59,7 @@ public class PlayerPerksData {
 
         getSchool(school).map.put(point, true);
 
-        new SyncCapabilityToClient(player, PlayerCaps.SPELLS).send(player);
+        new SyncCapabilityToClient(player, PlayerCaps.SPELLS).sendToClient(player);
 
     }
 

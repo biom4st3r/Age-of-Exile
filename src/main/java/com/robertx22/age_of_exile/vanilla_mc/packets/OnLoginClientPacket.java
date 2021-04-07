@@ -4,6 +4,8 @@ import com.robertx22.age_of_exile.database.registry.RegistryPackets;
 import com.robertx22.age_of_exile.database.registry.SyncTime;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -30,6 +32,7 @@ public class OnLoginClientPacket implements ServerToClientPacket {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
 
         if (when == When.BEFORE) {

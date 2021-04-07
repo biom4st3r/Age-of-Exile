@@ -88,7 +88,7 @@ public class PlayerSkills implements ICommonPlayerCap, IApplyableStats {
 
     public void onLevelUp(PlayerSkillEnum skill) {
 
-        new SyncCapabilityToClient(player, PlayerCaps.PLAYER_SKILLS).send(player);
+        new SyncCapabilityToClient(player, PlayerCaps.PLAYER_SKILLS).sendToClient(player);
 
         SoundUtils.ding(player.world, player.getBlockPos());
 
@@ -96,7 +96,7 @@ public class PlayerSkills implements ICommonPlayerCap, IApplyableStats {
             .append(" leveled up!")
             .formatted(skill.format), false);
 
-        new SkillLevelUpToClient(skill).send(player);
+        new SkillLevelUpToClient(skill).sendToClient(player);
     }
 
     public PlayerSkills(PlayerEntity player) {

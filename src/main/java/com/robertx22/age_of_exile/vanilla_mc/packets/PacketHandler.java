@@ -8,5 +8,4 @@ public interface PacketHandler {
     void saveToData(PacketByteBuf buf);
     Identifier getIdentifier();
     <T extends PacketHandler> T newInstance();
-
 }

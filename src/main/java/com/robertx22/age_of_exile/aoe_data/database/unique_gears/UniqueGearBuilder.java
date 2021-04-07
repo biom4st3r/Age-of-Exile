@@ -1,6 +1,6 @@
 package com.robertx22.age_of_exile.aoe_data.database.unique_gears;
 
-import com.ibm.icu.impl.Assert;
+import com.google.common.base.Preconditions;
 import com.robertx22.age_of_exile.aoe_data.base.DataGenKey;
 import com.robertx22.age_of_exile.database.data.StatModifier;
 import com.robertx22.age_of_exile.database.data.gear_types.bases.BaseGearType;
@@ -90,8 +90,8 @@ public class UniqueGearBuilder {
     }
 
     public UniqueGear build() {
-        Assert.assrt(!uniq.uniqueStats.isEmpty());
-        Assert.assrt(!uniq.stat_req.isEmpty());
+        Preconditions.checkArgument(!uniq.uniqueStats.isEmpty());
+        Preconditions.checkArgument(!uniq.stat_req.isEmpty());
 
         uniq.addToSerializables();
         return uniq;

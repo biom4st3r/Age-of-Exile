@@ -403,7 +403,7 @@ public class Unit {
             }
 
             if (entity instanceof PlayerEntity) {
-                new EntityUnitPacket(entity).send((PlayerEntity) entity);
+                new EntityUnitPacket(entity).sendToClient((PlayerEntity) entity);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -459,7 +459,7 @@ public class Unit {
                 boolean addstats = true;
 
                 if (entity instanceof PlayerEntity) {
-// TODO
+                    // TODO
                     if (addstats) {
                         GearRarity rar = gear.getRarity();
                         if (rar.hasMaxWornRestriction()) {

@@ -27,7 +27,7 @@ public class OpenHub {
         try {
 
             if (source.getEntity() instanceof ServerPlayerEntity) {
-                new OpenGuiPacket(OpenGuiPacket.GuiType.MAIN_HUB).send((PlayerEntity) source.getEntity());
+                new OpenGuiPacket(OpenGuiPacket.GuiType.MAIN_HUB).sendToClient((PlayerEntity) source.getEntity());
             }
 
         } catch (Exception e) {

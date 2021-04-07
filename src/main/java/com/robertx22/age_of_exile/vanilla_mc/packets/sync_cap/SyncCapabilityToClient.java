@@ -3,6 +3,8 @@ package com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ServerToClientPacket;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -49,13 +51,13 @@ public class SyncCapabilityToClient implements ServerToClientPacket {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
         final PlayerEntity player = client.player;
 
         if (player != null) {
             type.getCap(player)
                 .fromTag(nbt);
-
         }
     }
 

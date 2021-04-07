@@ -5,6 +5,8 @@ import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.uncommon.datasaving.Load;
 import com.robertx22.age_of_exile.vanilla_mc.packets.proxies.OpenGuiWrapper;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.client.MinecraftClient;
@@ -51,6 +53,7 @@ public class OpenGuiPacket implements ServerToClientPacket {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void onReceive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {        if (type == GuiType.MAIN_HUB) {
             OpenGuiWrapper.openMainHub();
         }
