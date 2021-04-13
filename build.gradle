@@ -38,38 +38,37 @@ dependencies {
 
     //APIs
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${cardinal_version}"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${cardinal_version}"
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${cardinal_version}"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${cardinal_version}"
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${cardinal_version}"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${cardinal_version}"
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-chunk:${cardinal_version}"
-
-
-   
-/*   
-    modApi ("me.shedaniel.cloth:cloth-config-fabric:${config_api_version}"){
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-
-*/
-    
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-chunk:${cardinal_version}"
 
     modImplementation("me.sargunvohra.mcmods:autoconfig1u:${auto_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+    include "me.sargunvohra.mcmods:autoconfig1u:${auto_config_version}"
 
     modApi("io.github.prospector:modmenu:${mod_menu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+    include "io.github.prospector:modmenu:${mod_menu_version}"
 
     modImplementation("top.theillusivec4.curios:curios-fabric:${curios_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+    include "top.theillusivec4.curios:curios-fabric:${curios_version}"
 
     modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}"
+    include "vazkii.patchouli:Patchouli:${patchouli_version}"
 
     modImplementation "de.siphalor:nbtcrafting-${nbtcrafting_version}"
     include "de.siphalor:nbtcrafting-${nbtcrafting_version}"
 
     modImplementation("net.kyrptonaught:customportalapi:${portal_api_version}")
+    include "net.kyrptonaught:customportalapi:${portal_api_version}"
     // .dev .jar doesn't include included deps, so I have to add them for in IDE to work
 
     compile files("Library-Of-Exile-1.16.5-1.0.8-dev.jar")
@@ -113,37 +112,37 @@ jar {
 
 // CURSEFORGE STUFF
 
-curseforge {
+// curseforge {
 
-    def curseProp = new Properties()
-    File secretPropsFile = file("key.properties")
-    curseProp.load(secretPropsFile.newInputStream())
+//     def curseProp = new Properties()
+//     File secretPropsFile = file("key.properties")
+//     curseProp.load(secretPropsFile.newInputStream())
 
-    project {
-        apiKey = curseProp.getProperty('curseKey')
-        id = "${curse_id}"
-        releaseType = "${curse_release}"
-        changelogType = 'markdown'
-        changelog = file('CHANGELOG.md')
-        addGameVersion("${project.minecraft_version}")
-        addGameVersion("Fabric")
-        addGameVersion("Java 8")
+//     project {
+//         apiKey = curseProp.getProperty('curseKey')
+//         id = "${curse_id}"
+//         releaseType = "${curse_release}"
+//         changelogType = 'markdown'
+//         changelog = file('CHANGELOG.md')
+//         addGameVersion("${project.minecraft_version}")
+//         addGameVersion("Fabric")
+//         addGameVersion("Java 8")
 
-        relations {
-            requiredDependency 'fabric-api'
-            requiredDependency 'library-of-exile'
-            requiredDependency 'dungeons-of-exile'
-            requiredDependency 'curios-fabric'
-            requiredDependency 'patchouli-fabric'
-        }
-        mainArtifact(remapJar)
+//         relations {
+//             requiredDependency 'fabric-api'
+//             requiredDependency 'library-of-exile'
+//             requiredDependency 'dungeons-of-exile'
+//             requiredDependency 'curios-fabric'
+//             requiredDependency 'patchouli-fabric'
+//         }
+//         mainArtifact(remapJar)
 
-        afterEvaluate {
-            uploadTask.dependsOn("remapJar")
-        }
-    }
-    options {
-        forgeGradleIntegration = false
-    }
-}
+//         afterEvaluate {
+//             uploadTask.dependsOn("remapJar")
+//         }
+//     }
+//     options {
+//         forgeGradleIntegration = false
+//     }
+// }
 

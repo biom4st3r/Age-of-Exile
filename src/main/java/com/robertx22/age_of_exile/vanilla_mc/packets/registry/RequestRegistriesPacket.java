@@ -5,7 +5,6 @@ import com.robertx22.age_of_exile.database.registry.SyncTime;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.vanilla_mc.packets.OnLoginClientPacket;
 import com.robertx22.age_of_exile.vanilla_mc.packets.ClientToServerPacket;
-import com.robertx22.library_of_exile.main.Packets;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;

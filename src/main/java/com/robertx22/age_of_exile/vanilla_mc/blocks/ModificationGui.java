@@ -3,7 +3,6 @@ package com.robertx22.age_of_exile.vanilla_mc.blocks;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.robertx22.age_of_exile.mmorpg.Ref;
 import com.robertx22.age_of_exile.vanilla_mc.blocks.bases.BaseModificationStation;
-import com.robertx22.library_of_exile.main.MyPacket;
 import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.packets.RequestTilePacket;
 import net.minecraft.block.entity.BlockEntity;

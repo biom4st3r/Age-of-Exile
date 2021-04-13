@@ -1,5 +1,7 @@
 package com.robertx22.age_of_exile.capability.player;
 
+import java.util.List;
+
 import com.robertx22.age_of_exile.capability.bases.ICommonPlayerCap;
 import com.robertx22.age_of_exile.database.data.stats.types.professions.all.BonusSkillExp;
 import com.robertx22.age_of_exile.mmorpg.Ref;
@@ -13,16 +15,14 @@ import com.robertx22.age_of_exile.uncommon.utilityclasses.LevelUtils;
 import com.robertx22.age_of_exile.vanilla_mc.packets.SkillLevelUpToClient;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.PlayerCaps;
 import com.robertx22.age_of_exile.vanilla_mc.packets.sync_cap.SyncCapabilityToClient;
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.library_of_exile.utils.LoadSave;
 import com.robertx22.library_of_exile.utils.SoundUtils;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-
-import java.util.List;
 
 public class PlayerSkills implements ICommonPlayerCap, IApplyableStats {
 
